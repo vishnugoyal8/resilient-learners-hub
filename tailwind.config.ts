@@ -21,15 +21,43 @@ export default {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          light: "hsl(var(--primary-light))",
+          dark: "hsl(var(--primary-dark))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
+          light: "hsl(var(--secondary-light))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        response: {
+          DEFAULT: "hsl(var(--response))",
+          light: "hsl(var(--response-light))",
+          foreground: "hsl(var(--response-foreground))",
+        },
+        emergency: {
+          critical: "hsl(var(--emergency-critical))",
+          warning: "hsl(var(--emergency-warning))",
+          info: "hsl(var(--emergency-info))",
+          success: "hsl(var(--emergency-success))",
+        },
+        disaster: {
+          fire: "hsl(var(--disaster-fire))",
+          water: "hsl(var(--disaster-water))",
+          earth: "hsl(var(--disaster-earth))",
+          wind: "hsl(var(--disaster-wind))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -57,6 +85,26 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      fontFamily: {
+        'heading': ['var(--font-heading)'],
+        'body': ['var(--font-body)'],
+      },
+      backgroundImage: {
+        'gradient-hero': 'var(--gradient-hero)',
+        'gradient-emergency': 'var(--gradient-emergency)',
+        'gradient-safety': 'var(--gradient-safety)',
+        'gradient-preparedness': 'var(--gradient-preparedness)',
+      },
+      boxShadow: {
+        'sm': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',  
+        'lg': 'var(--shadow-lg)',
+        'emergency': 'var(--shadow-emergency)',
+      },
+      transitionTimingFunction: {
+        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -2,41 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Disaster Preparedness Education System Design Tokens */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Background & Text */
+    --background: 220 20% 98%;
+    --foreground: 220 15% 15%;
 
+    /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 15% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Emergency Alert Colors */
+    --emergency-critical: 0 85% 60%;
+    --emergency-warning: 35 90% 55%;
+    --emergency-info: 210 85% 65%;
+    --emergency-success: 140 65% 50%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Disaster Theme Colors */
+    --disaster-fire: 15 85% 60%;
+    --disaster-water: 200 85% 55%;
+    --disaster-earth: 30 45% 45%;
+    --disaster-wind: 195 75% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Primary Brand (Safety Blue) */
+    --primary: 215 85% 50%;
+    --primary-light: 215 85% 65%;
+    --primary-dark: 215 85% 35%;
+    --primary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Secondary (Preparedness Green) */
+    --secondary: 145 60% 45%;
+    --secondary-light: 145 60% 60%;
+    --secondary-foreground: 0 0% 98%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Response Orange */
+    --response: 25 95% 55%;
+    --response-light: 25 95% 70%;
+    --response-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Neutral System */
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 220 15% 92%;
+    --accent-foreground: 220 15% 15%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Status Colors */
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --warning: 35 90% 55%;
+    --warning-foreground: 220 15% 15%;
+    --success: 140 65% 50%;
+    --success-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    /* UI Elements */
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 215 85% 50%;
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(215 85% 50%), hsl(200 85% 55%));
+    --gradient-emergency: linear-gradient(135deg, hsl(0 85% 60%), hsl(15 85% 60%));
+    --gradient-safety: linear-gradient(135deg, hsl(140 65% 50%), hsl(160 70% 45%));
+    --gradient-preparedness: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 90% 55%));
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px hsl(220 15% 15% / 0.08);
+    --shadow-md: 0 4px 12px hsl(220 15% 15% / 0.12);
+    --shadow-lg: 0 8px 25px hsl(220 15% 15% / 0.15);
+    --shadow-emergency: 0 8px 25px hsl(0 85% 60% / 0.25);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Typography */
+    --font-heading: 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +146,196 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  /* Emergency Alert Components */
+  .alert-critical {
+    @apply bg-red-50 border-red-200 text-red-800;
+    box-shadow: var(--shadow-emergency);
+  }
+  
+  .alert-warning {
+    @apply bg-amber-50 border-amber-200 text-amber-800;
+  }
+  
+  .alert-info {
+    @apply bg-blue-50 border-blue-200 text-blue-800;
+  }
+  
+  .alert-success {
+    @apply bg-green-50 border-green-200 text-green-800;
+  }
+
+  /* Disaster Module Cards */
+  .disaster-card {
+    @apply bg-card rounded-2xl shadow-md hover:shadow-lg border border-border/50;
+    transition: var(--transition-smooth);
+    backdrop-filter: blur(8px);
+  }
+
+  .disaster-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-emergency {
+    background: var(--gradient-emergency);
+  }
+  
+  .gradient-safety {
+    background: var(--gradient-safety);
+  }
+  
+  .gradient-preparedness {
+    background: var(--gradient-preparedness);
+  }
+
+  /* Progress Bars */
+  .progress-bar {
+    @apply w-full bg-muted rounded-full h-3 overflow-hidden;
+  }
+  
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+    background: var(--gradient-hero);
+  }
+
+  /* Interactive Elements */
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold text-primary-foreground;
+    background: var(--gradient-hero);
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-emergency {
+    @apply px-6 py-3 rounded-xl font-semibold text-white;
+    background: var(--gradient-emergency);
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 15px hsl(0 85% 60% / 0.3);
+  }
+  
+  .btn-emergency:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px hsl(0 85% 60% / 0.4);
+  }
+
+  .btn-success {
+    @apply px-6 py-3 rounded-xl font-semibold text-white;
+    background: var(--gradient-safety);
+    transition: var(--transition-smooth);
+  }
+
+  /* Navigation Styles */
+  .nav-link {
+    @apply text-foreground/70 hover:text-primary font-medium;
+    transition: var(--transition-smooth);
+  }
+
+  .nav-link:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Card Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-gradient-hero {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-emergency {
+    background: var(--gradient-emergency);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-gradient {
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, var(--gradient-hero) border-box;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(0 85% 60% / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(0 85% 60% / 0.6);
+  }
+}
+
+/* Emergency Pulse Animation */
+@keyframes emergencyPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 hsl(0 85% 60% / 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px hsl(0 85% 60% / 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 hsl(0 85% 60% / 0);
+  }
+}
+
+.emergency-pulse {
+  animation: emergencyPulse 1.5s infinite;
 }

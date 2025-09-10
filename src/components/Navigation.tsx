@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Bars3Icon, XMarkIcon, ShieldCheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ShieldCheckIcon, ChevronDownIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { user, signOut, loading } = useAuth();
+  const navigate = useNavigate();
 
   const navigation = [
     {
@@ -50,7 +53,7 @@ const Navigation = () => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:block">
+            <div className="hidden md:flex items-center space-x-8">
               <div className="flex items-center space-x-8">
                 {navigation.map((item) => (
                   <div key={item.name} className="relative group">
@@ -77,6 +80,53 @@ const Navigation = () => {
                   </div>
                 ))}
               </div>
+              
+              {/* Auth Section */}
+              {!loading && (
+                <div className="flex items-center space-x-4">
+                  {user ? (
+                    <div className="relative">
+                      <button
+                        onClick={() => setUserMenuOpen(!userMenuOpen)}
+                        className="flex items-center space-x-2 nav-link"
+                      >
+                        <UserCircleIcon className="h-6 w-6" />
+                        <span className="hidden lg:inline">
+                          {user.user_metadata?.full_name || user.email}
+                        </span>
+                        <ChevronDownIcon className="h-4 w-4" />
+                      </button>
+                      {userMenuOpen && (
+                        <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-xl shadow-lg z-50">
+                          <button
+                            onClick={() => {
+                              signOut();
+                              setUserMenuOpen(false);
+                            }}
+                            className="block w-full text-left px-4 py-3 text-sm text-foreground hover:bg-accent rounded-xl"
+                          >
+                            Sign Out
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-3">
+                      <Button
+                        variant="ghost"
+                        onClick={() => navigate('/auth')}
+                      >
+                        Sign In
+                      </Button>
+                      <Button
+                        onClick={() => navigate('/auth')}
+                      >
+                        Sign Up
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -127,6 +177,50 @@ const Navigation = () => {
                     )}
                   </div>
                 ))}
+                
+                {/* Mobile Auth Section */}
+                {!loading && (
+                  <div className="border-t border-border pt-4 mt-4">
+                    {user ? (
+                      <div className="space-y-2">
+                        <div className="px-3 py-2 text-sm text-muted-foreground">
+                          {user.user_metadata?.full_name || user.email}
+                        </div>
+                        <button
+                          onClick={() => {
+                            signOut();
+                            setMobileMenuOpen(false);
+                          }}
+                          className="block w-full text-left px-3 py-2 text-foreground hover:bg-accent rounded-lg"
+                        >
+                          Sign Out
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start"
+                          onClick={() => {
+                            navigate('/auth');
+                            setMobileMenuOpen(false);
+                          }}
+                        >
+                          Sign In
+                        </Button>
+                        <Button
+                          className="w-full justify-start"
+                          onClick={() => {
+                            navigate('/auth');
+                            setMobileMenuOpen(false);
+                          }}
+                        >
+                          Sign Up
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </motion.div>
           )}

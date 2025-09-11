@@ -11,8 +11,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { useAuth } from '@/contexts/AuthContext';
 
 const StudentDashboard = () => {
+  const { user } = useAuth();
+  
+  // Get user's display name from metadata or email
+  const userName = user?.user_metadata?.full_name || 
+                   user?.user_metadata?.name || 
+                   user?.email?.split('@')[0] || 
+                   'Student';
+
   const userProgress = [
     { module: 'Earthquake Preparedness', progress: 75, color: 'bg-amber-500' },
     { module: 'Flood Response', progress: 50, color: 'bg-blue-500' },
@@ -76,7 +85,7 @@ const StudentDashboard = () => {
                 <div className="mx-auto w-24 h-24 rounded-full bg-gradient-hero flex items-center justify-center mb-4">
                   <UserCircleIcon className="h-12 w-12 text-white" />
                 </div>
-                <CardTitle className="text-xl">Alex Johnson</CardTitle>
+                <CardTitle className="text-xl">{userName}</CardTitle>
                 <CardDescription>Student • Grade 10</CardDescription>
                 <div className="flex items-center justify-center space-x-1 mt-2">
                   <MapPinIcon className="h-4 w-4 text-muted-foreground" />

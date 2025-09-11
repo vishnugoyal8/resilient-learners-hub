@@ -52,6 +52,12 @@ const Index = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="space-y-24 pb-24"
         >
+          <DisasterModules />
+          <WeatherAlerts />
+          <DisasterNews />
+          <StudentDashboard />
+          <VirtualDrills />
+          <InteractiveTech />
           <MultilingualSupport />
           <EmergencyContacts />
           <ERPIntegration />

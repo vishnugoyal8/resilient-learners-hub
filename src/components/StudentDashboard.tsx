@@ -1,26 +1,76 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { 
   UserCircleIcon, 
   TrophyIcon, 
   AcademicCapIcon,
   CalendarDaysIcon,
   MapPinIcon,
-  PlayIcon
+  PlayIcon,
+  EnvelopeIcon,
+  CalendarIcon
 } from '@heroicons/react/24/outline';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 
 const StudentDashboard = () => {
   const { user } = useAuth();
+  const [profile, setProfile] = useState<any>(null);
+  const [userRole, setUserRole] = useState<string>('');
+  const [loading, setLoading] = useState(true);
   
   // Get user's display name from metadata or email
-  const userName = user?.user_metadata?.full_name || 
+  const userName = profile?.full_name || 
+                   user?.user_metadata?.full_name || 
                    user?.user_metadata?.name || 
                    user?.email?.split('@')[0] || 
                    'Student';
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!user) return;
+
+      try {
+        // Fetch profile data
+        const { data: profileData } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
+
+        // Fetch user role
+        const { data: roleData } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', user.id)
+          .single();
+
+        setProfile(profileData);
+        setUserRole(roleData?.role || 'student');
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, [user]);
+
+  const formatRole = (role: string) => {
+    return role.charAt(0).toUpperCase() + role.slice(1);
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long' 
+    });
+  };
 
   const userProgress = [
     { module: 'Earthquake Preparedness', progress: 75, color: 'bg-amber-500' },
@@ -85,8 +135,13 @@ const StudentDashboard = () => {
                 <div className="mx-auto w-24 h-24 rounded-full bg-gradient-hero flex items-center justify-center mb-4">
                   <UserCircleIcon className="h-12 w-12 text-white" />
                 </div>
-                <CardTitle className="text-xl">{userName}</CardTitle>
-                <CardDescription>Student • Grade 10</CardDescription>
+                <CardTitle className="text-xl">{loading ? 'Loading...' : userName}</CardTitle>
+                <CardDescription className="flex items-center justify-center space-x-2">
+                  <Badge variant="secondary" className="capitalize">
+                    {loading ? '...' : formatRole(userRole)}
+                  </Badge>
+                  {userRole === 'student' && <span>• Grade 10</span>}
+                </CardDescription>
                 <div className="flex items-center justify-center space-x-1 mt-2">
                   <MapPinIcon className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">North Region</span>
@@ -94,6 +149,22 @@ const StudentDashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
+                  {/* User Details */}
+                  {profile && (
+                    <div className="space-y-3 pb-4 border-b border-border">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <EnvelopeIcon className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-muted-foreground truncate">{profile.email || user?.email}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm">
+                        <CalendarIcon className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-muted-foreground">
+                          Joined {formatDate(profile.created_at)}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Overall Progress</span>
                     <span className="text-sm font-bold">70%</span>

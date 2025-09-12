@@ -56,36 +56,36 @@ const EarthquakeModule = ({ onBack }: { onBack: () => void }) => {
 
   const videoContent: VideoContent[] = [
     {
-      id: 'eq-basics',
-      title: 'Earthquake Fundamentals: Understanding Seismic Activity',
-      duration: '12:45',
+      id: 'disaster-mgmt-hindi',
+      title: 'आपदा प्रबंधन - भूकंप से कैसे बचें (Disaster Management in Hindi)',
+      duration: '25:30',
       thumbnail: earthquakeScienceThumbnail,
-      embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      description: 'Learn the basic science behind earthquakes, including tectonic plate movements and seismic waves.'
+      embedUrl: 'https://www.youtube.com/embed/t6wKiSyhmtE',
+      description: 'विवेक सर द्वारा हिंदी में भूकंप और आपदा प्रबंधन की संपूर्ण जानकारी। समझें कि भूकंप के दौरान क्या करना चाहिए और कैसे तैयारी करें।'
     },
     {
-      id: 'drop-cover-hold',
-      title: 'Drop, Cover, and Hold On - Emergency Response',
-      duration: '8:30',
+      id: 'drop-cover-hold-demo',
+      title: 'Drop, Cover, and Hold On - Live Demonstration',
+      duration: '3:45',
       thumbnail: earthquakeSafetyThumbnail,
-      embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      description: 'Master the essential earthquake safety technique that can save your life during seismic events.'
+      embedUrl: 'https://www.youtube.com/embed/aV89_yUJunM',
+      description: 'भूकंप के दौरान जान बचाने की सबसे महत्वपूर्ण तकनीक का प्रैक्टिकल डेमोंस्ट्रेशन। सीखें Drop, Cover, Hold On का सही तरीका।'
     },
     {
-      id: 'home-prep',
-      title: 'Earthquake-Proofing Your Home',
-      duration: '15:20',
+      id: 'fire-dept-safety',
+      title: 'Fire Department Earthquake Safety Training',
+      duration: '4:20',
       thumbnail: homePrepThumbnail,
-      embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      description: 'Practical steps to secure your home and prepare an earthquake emergency kit.'
+      embedUrl: 'https://www.youtube.com/embed/-MKMiFWK6Xk',
+      description: 'सैन जोसे फायर डिपार्टमेंट का ऑफिशियल भूकंप सुरक्षा प्रशिक्षण। देखें कि आपातकाल में फायरफाइटर कैसे काम करते हैं।'
     },
     {
-      id: 'school-safety',
-      title: 'Earthquake Safety in Schools',
-      duration: '10:15',
+      id: 'earthquake-resistant-city',
+      title: 'Making Cities Earthquake-Resistant - Real Problems & Solutions',
+      duration: '8:15',
       thumbnail: schoolSafetyThumbnail,
-      embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      description: 'Special considerations and protocols for earthquake safety in educational environments.'
+      embedUrl: 'https://www.youtube.com/embed/Ay4xuWD95Gk',
+      description: 'इस्तांबुल शहर का उदाहरण देखें कि कैसे भूकंप प्रतिरोधी शहर बनाया जाता है। समझें वास्तविक समस्याएं और उनके समाधान।'
     }
   ];
 

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   BuildingOffice2Icon, 
@@ -9,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import EarthquakeModule from './EarthquakeModule';
 
 const modules = [
   {
@@ -86,6 +88,13 @@ const cardVariants = {
 };
 
 const DisasterModules = () => {
+  const [activeModule, setActiveModule] = useState<string | null>(null);
+
+  // Handle module navigation
+  if (activeModule === 'earthquake') {
+    return <EarthquakeModule onBack={() => setActiveModule(null)} />;
+  }
+
   return (
     <section id="modules" className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -157,7 +166,17 @@ const DisasterModules = () => {
                       </div>
                     </div>
 
-                    <Button className="w-full btn-primary">
+                    <Button 
+                      className="w-full btn-primary"
+                      onClick={() => {
+                        if (module.id === 'earthquake') {
+                          setActiveModule('earthquake');
+                        } else {
+                          // Handle other modules
+                          console.log(`Opening ${module.title} module`);
+                        }
+                      }}
+                    >
                       {module.progress > 0 ? 'Continue Module' : 'Start Module'}
                     </Button>
                   </CardContent>

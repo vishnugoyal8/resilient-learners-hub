@@ -11,6 +11,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import EarthquakeModule from './EarthquakeModule';
+import FloodModule from './FloodModule';
+import FireModule from './FireModule';
+import CycloneModule from './CycloneModule';
+import PandemicModule from './PandemicModule';
+import FirstAidModule from './FirstAidModule';
 
 const modules = [
   {
@@ -94,6 +99,21 @@ const DisasterModules = () => {
   if (activeModule === 'earthquake') {
     return <EarthquakeModule onBack={() => setActiveModule(null)} />;
   }
+  if (activeModule === 'flood') {
+    return <FloodModule onBack={() => setActiveModule(null)} />;
+  }
+  if (activeModule === 'fire') {
+    return <FireModule onBack={() => setActiveModule(null)} />;
+  }
+  if (activeModule === 'cyclone') {
+    return <CycloneModule onBack={() => setActiveModule(null)} />;
+  }
+  if (activeModule === 'pandemic') {
+    return <PandemicModule onBack={() => setActiveModule(null)} />;
+  }
+  if (activeModule === 'first-aid') {
+    return <FirstAidModule onBack={() => setActiveModule(null)} />;
+  }
 
   return (
     <section id="modules" className="py-16 px-4 sm:px-6 lg:px-8">
@@ -168,14 +188,7 @@ const DisasterModules = () => {
 
                     <Button 
                       className="w-full btn-primary"
-                      onClick={() => {
-                        if (module.id === 'earthquake') {
-                          setActiveModule('earthquake');
-                        } else {
-                          // Handle other modules
-                          console.log(`Opening ${module.title} module`);
-                        }
-                      }}
+                      onClick={() => setActiveModule(module.id)}
                     >
                       {module.progress > 0 ? 'Continue Module' : 'Start Module'}
                     </Button>
